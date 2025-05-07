@@ -1,0 +1,59 @@
+<div class="dashboard-wrapper">
+  <aside class="sidebar">
+    <h3>Menu</h3>
+    <ul>
+      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+      <li><a routerLink="/dashboard/home" routerLinkActive="active">Home</a></li>
+      <li><a routerLink="/dashboard/contact" routerLinkActive="active">Contact Us</a></li>
+      <li><a (click)="logout()">Logout</a></li>        
+    </ul>
+    <p id="version">Version 1.0</p>
+  </aside>
+
+  <main class="main-content">
+    <h2>Welcome, {{ selectedUser[0].username }}</h2>
+  
+    <mat-table [dataSource]="users" class="mat-elevation-z8">
+    
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.username }} </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="age">
+        <mat-header-cell *matHeaderCellDef> Age </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.age }} </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="gender">
+        <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.gender }} </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="mobile">
+        <mat-header-cell *matHeaderCellDef> Mobile </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.mobile }} </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.email }} </mat-cell>
+      </ng-container>
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  
+    <router-outlet></router-outlet>
+  </main>
+  
+
+  <div class="custom-toast"
+    [ngClass]="{
+      'success-toast': tossedMessageType === 'success',
+      'error-toast': tossedMessageType === 'error'
+    }"
+    *ngIf="showTossed">
+    {{ tossedMessagestr }}
+  </div>
+</div>

@@ -1,0 +1,133 @@
+.register-wrapper {
+  max-width: 500px;
+  margin: 2rem auto;
+  position: relative;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+
+  .top-bar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    .nav {
+      background: transparent;
+
+      padding: 0.4rem 1rem;
+      color: #263238;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+
+      &:hover {
+        background: #505961;
+        color: white;
+      }
+    }
+  }
+
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      position: relative;
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+      
+      .errormsg{
+        height: 10px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+
+        &:focus {
+          border-color: #007bff;
+          outline: none;
+        }
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      .option{
+        width: 521.19px;
+        height: 39.19px;
+      }
+
+      small {
+        color: red;
+        font-size: 0.8rem;
+      }
+
+      span {
+        position: absolute;
+        top: 36px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: #007bff;
+      }
+    }
+
+    .primary-button {
+      background: transparent;
+      border: 2px solid #2f353b;
+      color: #333a41;
+      width: 516px;
+     
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+
+      &:hover {
+        background: #58616a;
+        color: white;
+      }
+    }
+  }
+}
+.custom-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+  font-weight: 500;
+}
+
+.success-toast {
+  background-color: #074272;
+}
+
+.error-toast {
+  background-color:  #b65200;
+}
+ 
