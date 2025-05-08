@@ -5,22 +5,30 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UserService {
-
   constructor(private router: Router) {}
 
-  login(email: string, password: string) 
-  {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const matchedUser = users.find((user: any) => user.email === email && user.password === password);
-
-    if (matchedUser)
-    {
-      localStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
-      return matchedUser;
-    }
-    return null;
+  // Save a new user to localStorage
+  setUserData(newUser: any): void {
+    const users = this.getUserData();
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
   }
 
+  // Get all users from localStorage
+  getUserData(): any[] {
+    return JSON.parse(localStorage.getItem('users') || '[]');
+  }
+
+  // Set currently logged in user
+  setLoggedInUser(user: any): void {
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
+  }
+
+  // Get currently logged in user
+  getLoggedInUser(): any {
+    return JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+  }
+  
   navigateToDashboard(user: any) {
     this.router.navigate(['/dashboard'], {
       queryParams: {

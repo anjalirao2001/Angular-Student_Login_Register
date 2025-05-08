@@ -59,37 +59,23 @@ export class RegisterComponent {
       const formData = this.registerForm.value;
       delete formData.confirmPassword;
 
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const users = this.userService.getUserData();
 
-      const userExists = users.some((user: any) => user.email === formData.email);
+    const userExists = users.some(user => user.email === formData.email);
 
-      if (userExists) {
-        // alert('User already exists. Please login.');
-        this.tossedMessage('Account already exsist, Please login', 'error');
-      } 
-      else 
-      {
-        users.push(formData);   
-        localStorage.setItem('users', JSON.stringify(users));
-        // alert('Registration successful!');
-        this.tossedMessage('Registration successful!', 'success');
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
-      }
+    if (userExists) {
+      this.tossedMessage('Account already exists. Please login', 'error');
+    } else {
+      delete formData.confirmPassword;
+      this.userService.setUserData(formData);
+      this.tossedMessage('Registration successful!', 'success');
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 2000);
     }
-    else
-    {
-      if(this.password!=this.confirmPassword)
-      {
-        this.tossedMessage("Password doesnot match",'error')
-      }
-      else
-      {
-        this.tossedMessage("Enter all Details correctly",'error')
-      }
-      
-    }
+  } else {
+    this.tossedMessage("Enter all details correctly", 'error');
+  }
   }
 
   tossedMessagestr = '';

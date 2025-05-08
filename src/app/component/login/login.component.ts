@@ -29,26 +29,25 @@ export class LoginComponent {
   onSubmit(loginForm: NgForm) 
   {
     if (loginForm.valid) 
-    {
-      const matchedUser = this.userService.login(this.loginData.email, this.loginData.password);
-
-      if (matchedUser) 
       {
-        this.tossedMessage('Login successful!', 'success');
-        
-        setTimeout(() => {
-          this.userService.navigateToDashboard(matchedUser);
-        }, 1000);
-      } 
-      else 
-      {
-        this.tossedMessage('Invalid login details!', 'error');
+        const users = this.userService.getUserData();
+        const matchedUser = users.find(user =>
+          user.email === this.loginData.email && user.password === this.loginData.password
+        );
+    
+        if (matchedUser) 
+          {
+          this.userService.setLoggedInUser(matchedUser);
+          this.tossedMessage('Login successful!', 'success');
+          setTimeout(() => {
+            this.userService.navigateToDashboard(matchedUser);
+          }, 1000);
+        } else {
+          this.tossedMessage('Invalid login details!', 'error');
+        }
+      } else {
+        this.tossedMessage('Please fill all fields correctly', 'error');
       }
-    } 
-    else 
-    {
-      this.tossedMessage('Please fill all fields correctly', 'error');
-    }
   }
 
   tossedMessage(message: string, type: 'success' | 'error' = 'success') 

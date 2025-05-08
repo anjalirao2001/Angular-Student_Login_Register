@@ -11,7 +11,7 @@
   </aside>
 
   <main class="main-content">
-    <h2>Welcome, {{ selectedUser[0].username }}</h2>
+    <h2>Welcome, {{ selectedUser.username }}</h2>
   
     <mat-table [dataSource]="users" class="mat-elevation-z8">
     
@@ -43,7 +43,10 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-  
+
+    <div *ngIf="users.length === 0">
+      <p>No user data available.</p>
+    </div>
     <router-outlet></router-outlet>
   </main>
   

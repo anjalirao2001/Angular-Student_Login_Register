@@ -3,32 +3,36 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
   imports: [CommonModule, RouterModule, MatTableModule],
+  providers: [UserService],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   userName: string = '';
   displayedColumns: string[] = ['username', 'age', 'gender', 'mobile', 'email'];
-
   queryEmail ="";
-  selectedUser : any[] =[]
+  selectedUser : any ={};
   users: any[] = []
   tossedMessagestr = ''; 
   showTossed = false; 
   tossedMessageType: 'success' | 'error' = 'success'; 
-  constructor(private router: Router , private activeroute: ActivatedRoute) {}
+  constructor(private router: Router , private activeroute: ActivatedRoute,private userService: UserService) {}
 
   ngOnInit(): void {
-    this.users = JSON.parse(localStorage.getItem('users') || '[]');
-    this.activeroute.queryParams.subscribe((param) => { this.queryEmail = param['email'];})
-    // console.log(this.activeroute)
-    this.selectedUser = this.users.filter((user:any) => user.email === this.queryEmail)
+    this.users = this.userService.getUserData();
+  
+    this.activeroute.queryParams.subscribe((params) => {
+      this.queryEmail = params['email'];
+      this.selectedUser = this.users.find((user: any) => user.email === this.queryEmail);
+    });
   }
+  
 
   logout() 
   {
